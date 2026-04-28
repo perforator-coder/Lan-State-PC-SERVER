@@ -38,43 +38,50 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label1.Location = new Point(12, 44);
             label1.Name = "label1";
-            label1.Size = new Size(38, 15);
+            label1.Size = new Size(43, 14);
             label1.TabIndex = 0;
             label1.Text = "Порт:";
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label2.Location = new Point(30, 18);
             label2.Name = "label2";
-            label2.Size = new Size(20, 15);
+            label2.Size = new Size(24, 14);
             label2.TabIndex = 1;
             label2.Text = "IP:";
             label2.Click += label2_Click;
             // 
             // Port_box
             // 
+            Port_box.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
             Port_box.Location = new Point(56, 41);
             Port_box.Name = "Port_box";
-            Port_box.Size = new Size(100, 23);
+            Port_box.Size = new Size(100, 22);
             Port_box.TabIndex = 2;
             // 
             // SAVE_PORT
             // 
-            SAVE_PORT.Location = new Point(47, 83);
+            SAVE_PORT.BackColor = Color.White;
+            SAVE_PORT.FlatStyle = FlatStyle.Flat;
+            SAVE_PORT.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            SAVE_PORT.Location = new Point(45, 77);
             SAVE_PORT.Name = "SAVE_PORT";
-            SAVE_PORT.Size = new Size(75, 23);
+            SAVE_PORT.Size = new Size(89, 29);
             SAVE_PORT.TabIndex = 3;
             SAVE_PORT.Text = "Сохранить";
-            SAVE_PORT.UseVisualStyleBackColor = true;
+            SAVE_PORT.UseVisualStyleBackColor = false;
             SAVE_PORT.Click += SAVE_PORT_Click;
             // 
             // ADD_PORT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.MediumPurple;
             ClientSize = new Size(172, 118);
             Controls.Add(SAVE_PORT);
             Controls.Add(Port_box);

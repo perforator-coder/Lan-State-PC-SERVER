@@ -21,7 +21,7 @@ namespace Lan_State_PC_SERVER
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    label2.Text = "IP:    " + ip.ToString();
+                    label2.Text = "IP:   " + ip.ToString();
                 }
             }
             

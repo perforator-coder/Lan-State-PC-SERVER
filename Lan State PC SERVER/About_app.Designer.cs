@@ -50,20 +50,20 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Tahoma", 24F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label1.Location = new Point(12, 127);
             label1.Name = "label1";
-            label1.Size = new Size(352, 42);
+            label1.Size = new Size(355, 39);
             label1.TabIndex = 1;
             label1.Text = "Lan State PC SERVER";
             // 
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
-            linkLabel1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            linkLabel1.Location = new Point(12, 172);
+            linkLabel1.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            linkLabel1.Location = new Point(12, 166);
             linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(75, 30);
+            linkLabel1.Size = new Size(74, 25);
             linkLabel1.TabIndex = 2;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Github";
@@ -72,10 +72,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Verdana", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label2.Location = new Point(181, 175);
+            label2.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label2.Location = new Point(203, 166);
             label2.Name = "label2";
-            label2.Size = new Size(177, 25);
+            label2.Size = new Size(155, 25);
             label2.TabIndex = 3;
             label2.Text = "CodeName: Uzi";
             // 
@@ -83,8 +83,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Gray;
-            ClientSize = new Size(370, 211);
+            BackColor = Color.MediumPurple;
+            ClientSize = new Size(370, 201);
             Controls.Add(label2);
             Controls.Add(linkLabel1);
             Controls.Add(label1);

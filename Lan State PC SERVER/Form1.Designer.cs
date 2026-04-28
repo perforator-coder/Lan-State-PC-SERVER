@@ -45,6 +45,9 @@
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = Color.MediumPurple;
+            menuStrip1.BackgroundImageLayout = ImageLayout.Zoom;
+            menuStrip1.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
             menuStrip1.Items.AddRange(new ToolStripItem[] { опцииToolStripMenuItem, сетьToolStripMenuItem, оПрограммеToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
@@ -56,13 +59,13 @@
             // 
             опцииToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { выходToolStripMenuItem });
             опцииToolStripMenuItem.Name = "опцииToolStripMenuItem";
-            опцииToolStripMenuItem.Size = new Size(56, 20);
+            опцииToolStripMenuItem.Size = new Size(59, 20);
             опцииToolStripMenuItem.Text = "Опции";
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new Size(108, 22);
+            выходToolStripMenuItem.Size = new Size(116, 22);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
@@ -70,27 +73,27 @@
             // 
             сетьToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { обновитьToolStripMenuItem, сменитьПортToolStripMenuItem, запускСервераToolStripMenuItem, остановкаСервераToolStripMenuItem, статусСервераToolStripMenuItem });
             сетьToolStripMenuItem.Name = "сетьToolStripMenuItem";
-            сетьToolStripMenuItem.Size = new Size(44, 20);
+            сетьToolStripMenuItem.Size = new Size(48, 20);
             сетьToolStripMenuItem.Text = "Сеть";
             // 
             // обновитьToolStripMenuItem
             // 
             обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
-            обновитьToolStripMenuItem.Size = new Size(180, 22);
+            обновитьToolStripMenuItem.Size = new Size(194, 22);
             обновитьToolStripMenuItem.Text = "Обновить";
             обновитьToolStripMenuItem.Click += обновитьToolStripMenuItem_Click;
             // 
             // сменитьПортToolStripMenuItem
             // 
             сменитьПортToolStripMenuItem.Name = "сменитьПортToolStripMenuItem";
-            сменитьПортToolStripMenuItem.Size = new Size(180, 22);
+            сменитьПортToolStripMenuItem.Size = new Size(194, 22);
             сменитьПортToolStripMenuItem.Text = "Сменить порт";
             сменитьПортToolStripMenuItem.Click += сменитьПортToolStripMenuItem_Click;
             // 
             // запускСервераToolStripMenuItem
             // 
             запускСервераToolStripMenuItem.Name = "запускСервераToolStripMenuItem";
-            запускСервераToolStripMenuItem.Size = new Size(180, 22);
+            запускСервераToolStripMenuItem.Size = new Size(194, 22);
             запускСервераToolStripMenuItem.Text = "Запуск сервера";
             запускСервераToolStripMenuItem.Click += запускСервераToolStripMenuItem_Click;
             // 
@@ -98,27 +101,28 @@
             // 
             остановкаСервераToolStripMenuItem.Enabled = false;
             остановкаСервераToolStripMenuItem.Name = "остановкаСервераToolStripMenuItem";
-            остановкаСервераToolStripMenuItem.Size = new Size(180, 22);
+            остановкаСервераToolStripMenuItem.Size = new Size(194, 22);
             остановкаСервераToolStripMenuItem.Text = "Остановка сервера";
             остановкаСервераToolStripMenuItem.Click += остановкаСервераToolStripMenuItem_Click;
             // 
             // статусСервераToolStripMenuItem
             // 
             статусСервераToolStripMenuItem.Name = "статусСервераToolStripMenuItem";
-            статусСервераToolStripMenuItem.Size = new Size(180, 22);
+            статусСервераToolStripMenuItem.Size = new Size(194, 22);
             статусСервераToolStripMenuItem.Text = "Статус сервера";
             статусСервераToolStripMenuItem.Click += статусСервераToolStripMenuItem_Click;
             // 
             // оПрограммеToolStripMenuItem
             // 
+            оПрограммеToolStripMenuItem.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
             оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            оПрограммеToolStripMenuItem.Size = new Size(94, 20);
+            оПрограммеToolStripMenuItem.Size = new Size(102, 20);
             оПрограммеToolStripMenuItem.Text = "О программе";
             оПрограммеToolStripMenuItem.Click += оПрограммеToolStripMenuItem_Click;
             // 
             // panel1
             // 
-            panel1.BackColor = SystemColors.ActiveBorder;
+            panel1.BackColor = Color.Khaki;
             panel1.Location = new Point(0, 27);
             panel1.Name = "panel1";
             panel1.Size = new Size(200, 344);
@@ -128,6 +132,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.MediumPurple;
             ClientSize = new Size(623, 373);
             Controls.Add(panel1);
             Controls.Add(menuStrip1);
