@@ -50,7 +50,7 @@ namespace Lan_State_PC_SERVER
                         }
                         catch (OperationCanceledException ex)
                         {
-                            MessageBox.Show($"Сервер отключился...","Server error connection");
+                           // MessageBox.Show($"Сервер отключился...","Server error connection");
                         }
                     }
                 });
@@ -94,7 +94,7 @@ namespace Lan_State_PC_SERVER
             {
 
                 SendMS.AutoFlush = true;
-                await SendMS.WriteLineAsync("PING_ID");
+                await SendMS.WriteLineAsync("PINGID");
                 string client_id = await ReadMS.ReadLineAsync();
                 
                 lock (Clients)
@@ -116,15 +116,15 @@ namespace Lan_State_PC_SERVER
         // тестовый запрос
         public async Task dev(string key_id)
         {
-            using (NetworkStream stream = Clients[key_id].GetStream())
-            using (StreamWriter WriteMS = new StreamWriter(stream,Encoding.UTF8))
-            using (StreamReader ReadMS = new StreamReader(stream,Encoding.UTF8))
-            {
+            NetworkStream stream = Clients[key_id].GetStream();
+            StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8);
+            StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8);
+            
                 WriteMS.AutoFlush = true;
                 await WriteMS.WriteLineAsync("STATUS");
                 string client_ms = await ReadMS.ReadLineAsync();
                 MessageBox.Show($"{key_id},{client_ms}");
-            }
+            
         }
     }
 }

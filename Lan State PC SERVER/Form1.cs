@@ -116,10 +116,18 @@ namespace Lan_State_PC_SERVER
                 client.Text = key;
                 client.BackColor = Color.White;
                 client.Location = new Point(5, y);
-                y += 15;
+                client.Click += ClientButton_Click;
+                y += 30;
                 panel1.Controls.Add(client);
             }
             
+        }
+        // прописываем метод для каждой кнопки
+        private void ClientButton_Click(object sender, EventArgs e)
+        {
+            //действия прия нажатой кнопке
+            Button client_button = (Button)sender;
+            ServerAct.dev(client_button.Text);
         }
     }
 }

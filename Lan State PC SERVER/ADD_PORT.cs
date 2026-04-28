@@ -38,12 +38,12 @@ namespace Lan_State_PC_SERVER
 
         private void SAVE_PORT_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(Port_box.Text))
+            if (String.IsNullOrWhiteSpace(Port_box.Text) )
             {
                 MessageBox.Show("Ошибка: Порт не может быть пустым","Port error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
-            if (!int.TryParse(Port_box.Text, out int tmp_port))
+            if (!int.TryParse(Port_box.Text, out int tmp_port) || Port_box.Text.Length > 4)
             {
                 MessageBox.Show("Ошибка: Не коректный Порт", "Port transver error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
