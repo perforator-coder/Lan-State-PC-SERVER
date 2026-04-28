@@ -50,7 +50,7 @@ namespace Lan_State_PC_SERVER
                         }
                         catch (OperationCanceledException ex)
                         {
-                            MessageBox.Show($"Задача отменена { ex.Message}");
+                            MessageBox.Show($"Сервер отключился...","Server error connection");
                         }
                     }
                 });
@@ -101,11 +101,9 @@ namespace Lan_State_PC_SERVER
                 {
                     if (!Clients.ContainsKey(client_id))
                     {
-                        //Clients[client_id].Close();
-                        //Console.Write("Добавлен клиент" + client_id);
-                         //MessageBox.Show("Есть клиент");
+                        //Clients[client_id].Close
                         Clients.Add(client_id, client);
-                        MessageBox.Show($"Есть клиент{client_id}");
+                       // MessageBox.Show($"Есть клиент{client_id}");
                     }
                     
                 }

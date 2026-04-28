@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Net.Sockets;
 
 namespace Lan_State_PC_SERVER
 {
@@ -7,6 +8,7 @@ namespace Lan_State_PC_SERVER
         private static int port = 0;
         private ADD_PORT Port_form = new ADD_PORT();
         private static LanSERVERacts ServerAct;
+        private Dictionary<string, TcpClient> Client_clone;
         public Form1()
         {
             InitializeComponent();
@@ -94,9 +96,30 @@ namespace Lan_State_PC_SERVER
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ServerAct.dev("nicita1");
+           //ServerAct.dev("testNick");
             About_app info_form = new About_app();
             info_form.ShowDialog();
+        }
+
+        private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Client_clone = ServerAct.GetClients;
+            if (Client_clone.Count == 0)
+            {
+                panel1.Controls.Clear();
+            }
+            int y = 10;
+            foreach (string key in Client_clone.Keys)
+            {
+                // Доработать расположение кнопок + реализацию получение данных при нажатии кнопки
+                Button client = new Button();
+                client.Text = key;
+                client.BackColor = Color.White;
+                client.Location = new Point(5, y);
+                y += 15;
+                panel1.Controls.Add(client);
+            }
+            
         }
     }
 }
