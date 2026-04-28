@@ -34,13 +34,17 @@
             сетьToolStripMenuItem = new ToolStripMenuItem();
             обновитьToolStripMenuItem = new ToolStripMenuItem();
             сменитьПортToolStripMenuItem = new ToolStripMenuItem();
+            запускСервераToolStripMenuItem = new ToolStripMenuItem();
+            остановкаСервераToolStripMenuItem = new ToolStripMenuItem();
+            статусСервераToolStripMenuItem = new ToolStripMenuItem();
+            оПрограммеToolStripMenuItem = new ToolStripMenuItem();
             panel1 = new Panel();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { опцииToolStripMenuItem, сетьToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { опцииToolStripMenuItem, сетьToolStripMenuItem, оПрограммеToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(623, 24);
@@ -63,7 +67,7 @@
             // 
             // сетьToolStripMenuItem
             // 
-            сетьToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { обновитьToolStripMenuItem, сменитьПортToolStripMenuItem });
+            сетьToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { обновитьToolStripMenuItem, сменитьПортToolStripMenuItem, запускСервераToolStripMenuItem, остановкаСервераToolStripMenuItem, статусСервераToolStripMenuItem });
             сетьToolStripMenuItem.Name = "сетьToolStripMenuItem";
             сетьToolStripMenuItem.Size = new Size(44, 20);
             сетьToolStripMenuItem.Text = "Сеть";
@@ -71,15 +75,44 @@
             // обновитьToolStripMenuItem
             // 
             обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
-            обновитьToolStripMenuItem.Size = new Size(151, 22);
+            обновитьToolStripMenuItem.Size = new Size(180, 22);
             обновитьToolStripMenuItem.Text = "Обновить";
             // 
             // сменитьПортToolStripMenuItem
             // 
             сменитьПортToolStripMenuItem.Name = "сменитьПортToolStripMenuItem";
-            сменитьПортToolStripMenuItem.Size = new Size(151, 22);
+            сменитьПортToolStripMenuItem.Size = new Size(180, 22);
             сменитьПортToolStripMenuItem.Text = "Сменить порт";
             сменитьПортToolStripMenuItem.Click += сменитьПортToolStripMenuItem_Click;
+            // 
+            // запускСервераToolStripMenuItem
+            // 
+            запускСервераToolStripMenuItem.Name = "запускСервераToolStripMenuItem";
+            запускСервераToolStripMenuItem.Size = new Size(180, 22);
+            запускСервераToolStripMenuItem.Text = "Запуск сервера";
+            запускСервераToolStripMenuItem.Click += запускСервераToolStripMenuItem_Click;
+            // 
+            // остановкаСервераToolStripMenuItem
+            // 
+            остановкаСервераToolStripMenuItem.Enabled = false;
+            остановкаСервераToolStripMenuItem.Name = "остановкаСервераToolStripMenuItem";
+            остановкаСервераToolStripMenuItem.Size = new Size(180, 22);
+            остановкаСервераToolStripMenuItem.Text = "Остановка сервера";
+            остановкаСервераToolStripMenuItem.Click += остановкаСервераToolStripMenuItem_Click;
+            // 
+            // статусСервераToolStripMenuItem
+            // 
+            статусСервераToolStripMenuItem.Name = "статусСервераToolStripMenuItem";
+            статусСервераToolStripMenuItem.Size = new Size(180, 22);
+            статусСервераToolStripMenuItem.Text = "Статус сервера";
+            статусСервераToolStripMenuItem.Click += статусСервераToolStripMenuItem_Click;
+            // 
+            // оПрограммеToolStripMenuItem
+            // 
+            оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            оПрограммеToolStripMenuItem.Size = new Size(94, 20);
+            оПрограммеToolStripMenuItem.Text = "О программе";
+            оПрограммеToolStripMenuItem.Click += оПрограммеToolStripMenuItem_Click;
             // 
             // panel1
             // 
@@ -117,5 +150,9 @@
         private ToolStripMenuItem обновитьToolStripMenuItem;
         private ToolStripMenuItem сменитьПортToolStripMenuItem;
         private Panel panel1;
+        private ToolStripMenuItem запускСервераToolStripMenuItem;
+        private ToolStripMenuItem остановкаСервераToolStripMenuItem;
+        private ToolStripMenuItem статусСервераToolStripMenuItem;
+        private ToolStripMenuItem оПрограммеToolStripMenuItem;
     }
 }

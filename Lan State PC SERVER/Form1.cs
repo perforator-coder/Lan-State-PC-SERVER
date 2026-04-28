@@ -6,13 +6,14 @@ namespace Lan_State_PC_SERVER
     {
         private static int port = 0;
         private ADD_PORT Port_form = new ADD_PORT();
+        private static LanSERVERacts ServerAct;
         public Form1()
         {
             InitializeComponent();
             //проверяем есть ли файл и если нет то просим вести порт
             if (!File.Exists("Port.txt"))
             {
-                Port_form.ShowDialog();  
+                Port_form.ShowDialog();
             }
             else
             {
@@ -24,7 +25,7 @@ namespace Lan_State_PC_SERVER
                 }
             }
             Getport = port;
-  
+            ServerAct = new LanSERVERacts(port);
             this.FormClosed += new FormClosedEventHandler(SavePort);
         }
         [DefaultValue(0)]
@@ -36,9 +37,9 @@ namespace Lan_State_PC_SERVER
             }
             set
             {
-                
-                    port = value;
-                
+
+                port = value;
+
             }
         }
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -52,8 +53,48 @@ namespace Lan_State_PC_SERVER
 
         private void сменитьПортToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ADD_PORT Port_form = new ADD_PORT();
-            Port_form.ShowDialog();
+            if (!ServerAct.IsEnable)
+            {
+                ADD_PORT Port_form = new ADD_PORT();
+                Port_form.ShowDialog();
+                ServerAct = new LanSERVERacts(port);
+            }
+
+        }
+
+        private void запускСервераToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+
+            if (ServerAct.StartServer()) // если сервер запущен то делаем следующие
+            {
+                запускСервераToolStripMenuItem.Enabled = false;
+                остановкаСервераToolStripMenuItem.Enabled = true;
+
+                сменитьПортToolStripMenuItem.Enabled = false;
+            }
+            return;
+        }
+
+        private void остановкаСервераToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ServerAct.StopServer())//если успешно выключен
+            {
+                запускСервераToolStripMenuItem.Enabled = true;
+                сменитьПортToolStripMenuItem.Enabled = true;
+
+                остановкаСервераToolStripMenuItem.Enabled = false;
+            }
+        }
+
+        private void статусСервераToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Cтатус сервера:{ServerAct.IsEnable}\nКоличество подключений:{ServerAct.GetClients.Count}");
+        }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ServerAct.dev("nicita");
         }
     }
 }
