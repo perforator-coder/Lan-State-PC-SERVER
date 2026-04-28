@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip1 = new MenuStrip();
             опцииToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
@@ -75,20 +76,20 @@
             // обновитьToolStripMenuItem
             // 
             обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
-            обновитьToolStripMenuItem.Size = new Size(180, 22);
+            обновитьToolStripMenuItem.Size = new Size(179, 22);
             обновитьToolStripMenuItem.Text = "Обновить";
             // 
             // сменитьПортToolStripMenuItem
             // 
             сменитьПортToolStripMenuItem.Name = "сменитьПортToolStripMenuItem";
-            сменитьПортToolStripMenuItem.Size = new Size(180, 22);
+            сменитьПортToolStripMenuItem.Size = new Size(179, 22);
             сменитьПортToolStripMenuItem.Text = "Сменить порт";
             сменитьПортToolStripMenuItem.Click += сменитьПортToolStripMenuItem_Click;
             // 
             // запускСервераToolStripMenuItem
             // 
             запускСервераToolStripMenuItem.Name = "запускСервераToolStripMenuItem";
-            запускСервераToolStripMenuItem.Size = new Size(180, 22);
+            запускСервераToolStripMenuItem.Size = new Size(179, 22);
             запускСервераToolStripMenuItem.Text = "Запуск сервера";
             запускСервераToolStripMenuItem.Click += запускСервераToolStripMenuItem_Click;
             // 
@@ -96,14 +97,14 @@
             // 
             остановкаСервераToolStripMenuItem.Enabled = false;
             остановкаСервераToolStripMenuItem.Name = "остановкаСервераToolStripMenuItem";
-            остановкаСервераToolStripMenuItem.Size = new Size(180, 22);
+            остановкаСервераToolStripMenuItem.Size = new Size(179, 22);
             остановкаСервераToolStripMenuItem.Text = "Остановка сервера";
             остановкаСервераToolStripMenuItem.Click += остановкаСервераToolStripMenuItem_Click;
             // 
             // статусСервераToolStripMenuItem
             // 
             статусСервераToolStripMenuItem.Name = "статусСервераToolStripMenuItem";
-            статусСервераToolStripMenuItem.Size = new Size(180, 22);
+            статусСервераToolStripMenuItem.Size = new Size(179, 22);
             статусСервераToolStripMenuItem.Text = "Статус сервера";
             статусСервераToolStripMenuItem.Click += статусСервераToolStripMenuItem_Click;
             // 
@@ -130,6 +131,7 @@
             Controls.Add(panel1);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "Form1";

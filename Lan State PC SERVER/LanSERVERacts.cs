@@ -63,6 +63,7 @@ namespace Lan_State_PC_SERVER
                 return false;
             }
         }
+        //остановка сервера
         public bool StopServer() 
         {
             try
@@ -114,6 +115,7 @@ namespace Lan_State_PC_SERVER
                 }
             }
         }
+        // тестовый запрос
         public async Task dev(string key_id)
         {
             using (NetworkStream stream = Clients[key_id].GetStream())

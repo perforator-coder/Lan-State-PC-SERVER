@@ -94,7 +94,9 @@ namespace Lan_State_PC_SERVER
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ServerAct.dev("nicita");
+            ServerAct.dev("nicita1");
+            About_app info_form = new About_app();
+            info_form.ShowDialog();
         }
     }
 }
