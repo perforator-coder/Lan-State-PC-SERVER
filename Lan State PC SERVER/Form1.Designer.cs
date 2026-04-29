@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip1 = new MenuStrip();
             опцииToolStripMenuItem = new ToolStripMenuItem();
@@ -46,7 +47,13 @@
             CPU_Client = new Label();
             Gpu_client = new Label();
             Mac_client = new Label();
+            icon_tray = new NotifyIcon(components);
+            Tray_menu = new ContextMenuStrip(components);
+            выключитьСерверИВыйтиToolStripMenuItem = new ToolStripMenuItem();
+            статусСервераToolStripMenuItem1 = new ToolStripMenuItem();
+            показатьМенюToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
+            Tray_menu.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -132,7 +139,7 @@
             panel1.BackColor = Color.Khaki;
             panel1.Location = new Point(0, 24);
             panel1.Name = "panel1";
-            panel1.Size = new Size(127, 349);
+            panel1.Size = new Size(127, 350);
             panel1.TabIndex = 1;
             // 
             // IP_client
@@ -197,6 +204,45 @@
             Mac_client.TabIndex = 7;
             Mac_client.Text = "MAC-адрес: ";
             // 
+            // icon_tray
+            // 
+            icon_tray.BalloonTipIcon = ToolTipIcon.Info;
+            icon_tray.BalloonTipText = "Программа работает в трее, так как сервер запущен.";
+            icon_tray.BalloonTipTitle = "Lan State PC SERVER";
+            icon_tray.ContextMenuStrip = Tray_menu;
+            icon_tray.Icon = (Icon)resources.GetObject("icon_tray.Icon");
+            icon_tray.Text = "test";
+            icon_tray.Visible = true;
+            // 
+            // Tray_menu
+            // 
+            Tray_menu.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            Tray_menu.Items.AddRange(new ToolStripItem[] { выключитьСерверИВыйтиToolStripMenuItem, статусСервераToolStripMenuItem1, показатьМенюToolStripMenuItem });
+            Tray_menu.Name = "Tray_menu";
+            Tray_menu.Size = new Size(247, 70);
+            Tray_menu.Opening += Tray_menu_Opening;
+            // 
+            // выключитьСерверИВыйтиToolStripMenuItem
+            // 
+            выключитьСерверИВыйтиToolStripMenuItem.Name = "выключитьСерверИВыйтиToolStripMenuItem";
+            выключитьСерверИВыйтиToolStripMenuItem.Size = new Size(246, 22);
+            выключитьСерверИВыйтиToolStripMenuItem.Text = "Выключить сервер и выйти";
+            выключитьСерверИВыйтиToolStripMenuItem.Click += выключитьСерверИВыйтиToolStripMenuItem_Click;
+            // 
+            // статусСервераToolStripMenuItem1
+            // 
+            статусСервераToolStripMenuItem1.Name = "статусСервераToolStripMenuItem1";
+            статусСервераToolStripMenuItem1.Size = new Size(246, 22);
+            статусСервераToolStripMenuItem1.Text = "Статус сервера";
+            статусСервераToolStripMenuItem1.Click += статусСервераToolStripMenuItem1_Click;
+            // 
+            // показатьМенюToolStripMenuItem
+            // 
+            показатьМенюToolStripMenuItem.Name = "показатьМенюToolStripMenuItem";
+            показатьМенюToolStripMenuItem.Size = new Size(246, 22);
+            показатьМенюToolStripMenuItem.Text = "Показать меню";
+            показатьМенюToolStripMenuItem.Click += показатьМенюToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -220,6 +266,7 @@
             Text = "Lan State PC SERVER";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            Tray_menu.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -243,5 +290,10 @@
         private Label CPU_Client;
         private Label Gpu_client;
         private Label Mac_client;
+        private NotifyIcon icon_tray;
+        private ContextMenuStrip Tray_menu;
+        private ToolStripMenuItem выключитьСерверИВыйтиToolStripMenuItem;
+        private ToolStripMenuItem статусСервераToolStripMenuItem1;
+        private ToolStripMenuItem показатьМенюToolStripMenuItem;
     }
 }

@@ -10,6 +10,7 @@ namespace Lan_State_PC_SERVER
         private ADD_PORT Port_form = new ADD_PORT();
         private static LanSERVERacts ServerAct;
         private Dictionary<string, TcpClient> Client_clone;
+        private bool isfirsttime = true;
         public Form1()
         {
             InitializeComponent();
@@ -36,7 +37,9 @@ namespace Lan_State_PC_SERVER
             CPU_Client.Visible = false;
             Gpu_client.Visible = false;
             Mac_client.Visible = false;
+            icon_tray.Visible = false;
             this.FormClosed += new FormClosedEventHandler(SavePort);
+            this.FormClosing += new FormClosingEventHandler(StopClosing);
         }
         [DefaultValue(0)]
         public static int Getport
@@ -56,9 +59,29 @@ namespace Lan_State_PC_SERVER
         {
             this.Close();
         }
+        //дейстиве при закрытии
         private void SavePort(object sender, EventArgs e)
         {
+
             File.WriteAllText("Port.txt", port.ToString());
+
+        }
+        // действие проверяющие запущен сервер или нет
+        private void StopClosing(object sender, FormClosingEventArgs e)
+        {
+            if (ServerAct.IsEnable)
+            {
+                e.Cancel = true;
+                this.WindowState = FormWindowState.Minimized;
+                this.ShowInTaskbar = false;
+                this.icon_tray.Visible = true;
+                //icon_tray.BalloonTipIcon = Properties.Resources.SERVER_ICON;
+                if (isfirsttime)
+                {
+                    icon_tray.ShowBalloonTip(10, "Lan State PC SERVER", "Программа работает в трее, так как сервер запущен.", ToolTipIcon.Info);
+                    isfirsttime = false;
+                }
+            }
         }
 
         private void сменитьПортToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,7 +91,9 @@ namespace Lan_State_PC_SERVER
                 ADD_PORT Port_form = new ADD_PORT();
                 Port_form.ShowDialog();
                 ServerAct = new LanSERVERacts(port);
+                
             }
+
 
         }
 
@@ -108,9 +133,16 @@ namespace Lan_State_PC_SERVER
         private void статусСервераToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // сделать нормальное меню или отображение
+            string ru_ms;
             if (ServerAct.IsEnable)
-            { }
-            MessageBox.Show($"Cтатус сервера:{ServerAct.IsEnable}\nКоличество подключений:{ServerAct.GetClients.Count}");
+            {
+                ru_ms = "Включен";
+            }
+            else
+            {
+                ru_ms = "Выключен";
+            }
+            MessageBox.Show($"Cтатус сервера:{ru_ms}\nКоличество подключений:{ServerAct.GetClients.Count}");
         }
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
@@ -199,6 +231,39 @@ namespace Lan_State_PC_SERVER
         }
 
         private void IP_client_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void выключитьСерверИВыйтиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ServerAct.StopServer();
+            this.Close();
+        }
+
+        private void показатьМенюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            icon_tray.Visible = false;
+            this.Show();
+            this.ShowInTaskbar = true;
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void статусСервераToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string ru_ms;
+            if (ServerAct.IsEnable)
+            {
+                ru_ms = "Включен";
+            }
+            else
+            {
+                ru_ms = "Выключен";
+            }
+            MessageBox.Show($"Cтатус сервера:{ru_ms}\nКоличество подключений:{ServerAct.GetClients.Count}");
+        }
+
+        private void Tray_menu_Opening(object sender, CancelEventArgs e)
         {
 
         }
