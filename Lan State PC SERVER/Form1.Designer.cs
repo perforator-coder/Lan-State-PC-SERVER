@@ -124,10 +124,11 @@
             // 
             // panel1
             // 
+            panel1.AutoScroll = true;
             panel1.BackColor = Color.Khaki;
-            panel1.Location = new Point(0, 27);
+            panel1.Location = new Point(0, 24);
             panel1.Name = "panel1";
-            panel1.Size = new Size(127, 344);
+            panel1.Size = new Size(127, 349);
             panel1.TabIndex = 1;
             // 
             // IP_client

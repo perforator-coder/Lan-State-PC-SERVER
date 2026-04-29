@@ -29,6 +29,9 @@ namespace Lan_State_PC_SERVER
             }
             Getport = port;
             ServerAct = new LanSERVERacts(port);
+            IP_client.Visible = false;
+            Net_conection.Visible = false;
+           
             this.FormClosed += new FormClosedEventHandler(SavePort);
         }
         [DefaultValue(0)]
@@ -98,7 +101,7 @@ namespace Lan_State_PC_SERVER
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           //ServerAct.dev("testNick");
+           
             About_app info_form = new About_app();
             info_form.ShowDialog();
         }
@@ -114,10 +117,11 @@ namespace Lan_State_PC_SERVER
             int count = 0;
             foreach (string key in Client_clone.Keys)
             {
-                // Доработать расположение кнопок + реализацию получение данных при нажатии кнопки
+
+                // Доработать расположение кнопок 
                 Button client = new Button();
                 client.Text = key;
-
+                count += 1;
                 client.BackColor = Color.White;
                 client.Location = new Point(20, y);
                 client.FlatStyle = FlatStyle.Flat;
@@ -125,6 +129,13 @@ namespace Lan_State_PC_SERVER
                 client.Click += ClientButton_Click;
                 y += 30;
                 panel1.Controls.Add(client);
+                if (count > 1)
+                {
+                    panel1.VerticalScroll.Visible = true;
+                    panel1.VerticalScroll.Maximum = 2000;
+                    panel1.VerticalScroll.Minimum = 0;
+
+                }
             }
             
         }
@@ -134,10 +145,14 @@ namespace Lan_State_PC_SERVER
             //действия прия нажатой кнопке
             Button client_button = (Button)sender;
             string client_ms_er =  await ServerAct.GetinfoClient(client_button.Text);
+            //очищяем строку от невидимых символов
             string client_ms = Regex.Replace(client_ms_er,@"[^1-9A-Яа-я.:]","");
             string[] client_inf = client_ms.Split(':');
+
             IP_client.Text = "IP: " + client_inf[0];
             Net_conection.Text = "Есть интернет(Ping yandex dns): " + client_inf[1];
+            IP_client.Visible = true;
+            Net_conection.Visible = true;
         }
     }
 }
