@@ -42,6 +42,8 @@
             panel1 = new Panel();
             IP_client = new Label();
             Net_conection = new Label();
+            OS_name = new Label();
+            CPU_Client = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -135,7 +137,7 @@
             // 
             IP_client.AutoSize = true;
             IP_client.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            IP_client.Location = new Point(336, 108);
+            IP_client.Location = new Point(321, 69);
             IP_client.Name = "IP_client";
             IP_client.Size = new Size(28, 14);
             IP_client.TabIndex = 2;
@@ -145,11 +147,31 @@
             // 
             Net_conection.AutoSize = true;
             Net_conection.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            Net_conection.Location = new Point(148, 79);
+            Net_conection.Location = new Point(133, 97);
             Net_conection.Name = "Net_conection";
             Net_conection.Size = new Size(216, 14);
             Net_conection.TabIndex = 3;
             Net_conection.Text = "Есть интернет(Ping yandex dns): \r\n";
+            // 
+            // OS_name
+            // 
+            OS_name.AutoSize = true;
+            OS_name.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            OS_name.Location = new Point(261, 43);
+            OS_name.Name = "OS_name";
+            OS_name.Size = new Size(88, 14);
+            OS_name.TabIndex = 4;
+            OS_name.Text = "OS Клиента: ";
+            // 
+            // CPU_Client
+            // 
+            CPU_Client.AutoSize = true;
+            CPU_Client.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            CPU_Client.Location = new Point(254, 125);
+            CPU_Client.Name = "CPU_Client";
+            CPU_Client.Size = new Size(95, 14);
+            CPU_Client.TabIndex = 5;
+            CPU_Client.Text = "CPU Клиента: ";
             // 
             // Form1
             // 
@@ -157,6 +179,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MediumPurple;
             ClientSize = new Size(623, 373);
+            Controls.Add(CPU_Client);
+            Controls.Add(OS_name);
             Controls.Add(Net_conection);
             Controls.Add(IP_client);
             Controls.Add(panel1);
@@ -189,5 +213,7 @@
         private ToolStripMenuItem оПрограммеToolStripMenuItem;
         private Label IP_client;
         private Label Net_conection;
+        private Label OS_name;
+        private Label CPU_Client;
     }
 }

@@ -135,20 +135,28 @@ namespace Lan_State_PC_SERVER
         // запрос для получения данных
         public async Task<string> GetinfoClient(string Key_ID)
         {
-            if (Clients.ContainsKey(Key_ID))
+            try
             {
-                NetworkStream stream = Clients[Key_ID].GetStream();
-                StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8);
-                StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8);
-                WriteMS.AutoFlush = true;
-                await WriteMS.WriteLineAsync("GETINFO");
-                string Client_ms = await ReadMS.ReadLineAsync();
-                
-                return Client_ms;
+                if (Clients.ContainsKey(Key_ID))
+                {
+                    NetworkStream stream = Clients[Key_ID].GetStream();
+                    StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8);
+                    StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8);
+                    WriteMS.AutoFlush = true;
+                    await WriteMS.WriteLineAsync("GETINFO");
+                    string Client_ms = await ReadMS.ReadLineAsync();
+
+                    return Client_ms;
+                }
+                else
+                {
+                    MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return "er";
+                }
             }
-            else 
+            catch (IOException ex)
             {
-                MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
                 return "er";
             }
         }
