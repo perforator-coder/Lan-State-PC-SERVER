@@ -40,6 +40,8 @@
             статусСервераToolStripMenuItem = new ToolStripMenuItem();
             оПрограммеToolStripMenuItem = new ToolStripMenuItem();
             panel1 = new Panel();
+            IP_client = new Label();
+            Net_conection = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -125,8 +127,28 @@
             panel1.BackColor = Color.Khaki;
             panel1.Location = new Point(0, 27);
             panel1.Name = "panel1";
-            panel1.Size = new Size(200, 344);
+            panel1.Size = new Size(127, 344);
             panel1.TabIndex = 1;
+            // 
+            // IP_client
+            // 
+            IP_client.AutoSize = true;
+            IP_client.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            IP_client.Location = new Point(336, 108);
+            IP_client.Name = "IP_client";
+            IP_client.Size = new Size(28, 14);
+            IP_client.TabIndex = 2;
+            IP_client.Text = "IP: ";
+            // 
+            // Net_conection
+            // 
+            Net_conection.AutoSize = true;
+            Net_conection.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            Net_conection.Location = new Point(148, 79);
+            Net_conection.Name = "Net_conection";
+            Net_conection.Size = new Size(216, 14);
+            Net_conection.TabIndex = 3;
+            Net_conection.Text = "Есть интернет(Ping yandex dns): \r\n";
             // 
             // Form1
             // 
@@ -134,6 +156,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MediumPurple;
             ClientSize = new Size(623, 373);
+            Controls.Add(Net_conection);
+            Controls.Add(IP_client);
             Controls.Add(panel1);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -162,5 +186,7 @@
         private ToolStripMenuItem остановкаСервераToolStripMenuItem;
         private ToolStripMenuItem статусСервераToolStripMenuItem;
         private ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private Label IP_client;
+        private Label Net_conection;
     }
 }
