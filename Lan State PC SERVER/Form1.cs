@@ -34,6 +34,8 @@ namespace Lan_State_PC_SERVER
             Net_conection.Visible = false;
             OS_name.Visible = false;
             CPU_Client.Visible = false;
+            Gpu_client.Visible = false;
+            Mac_client.Visible = false;
             this.FormClosed += new FormClosedEventHandler(SavePort);
         }
         [DefaultValue(0)]
@@ -92,6 +94,14 @@ namespace Lan_State_PC_SERVER
                 сменитьПортToolStripMenuItem.Enabled = true;
 
                 остановкаСервераToolStripMenuItem.Enabled = false;
+                panel1.Controls.Clear();
+                IP_client.Visible = false;
+                Net_conection.Visible = false;
+                OS_name.Visible = false;
+                CPU_Client.Visible = false;
+                Gpu_client.Visible = false;
+                Mac_client.Visible = false;
+
             }
         }
 
@@ -105,7 +115,7 @@ namespace Lan_State_PC_SERVER
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
             About_app info_form = new About_app();
             info_form.ShowDialog();
         }
@@ -141,7 +151,7 @@ namespace Lan_State_PC_SERVER
 
                 }
             }
-            
+
         }
         // прописываем метод для каждой кнопки
         private async void ClientButton_Click(object sender, EventArgs e)
@@ -151,26 +161,46 @@ namespace Lan_State_PC_SERVER
                 //действия прия нажатой кнопке
                 Button client_button = (Button)sender;
                 string client_ms_er = await ServerAct.GetinfoClient(client_button.Text);
-               
+
                 //очищяем строку от невидимых символов
-                string client_ms = Regex.Replace(client_ms_er, @"[^0-9A-Яа-яA-Za-z.:]", "");
-                string[] client_inf = client_ms.Split(':');
-               
+                string client_ms = Regex.Replace(client_ms_er, @"[^0-9A-Яа-яA-Za-z.: (),]", "");
+                string[] client_inf = client_ms.Split(',');
+                //MessageBox.Show(client_ms_er);
                 IP_client.Text = "IP: " + client_inf[0];
-                Net_conection.Text = "Есть интернет(Ping yandex dns): " + client_inf[1];
+                Net_conection.Text = "Есть интернет: " + client_inf[1];
                 OS_name.Text = "OS Клиента: " + client_inf[2];
                 CPU_Client.Text = "CPU Клиента: " + client_inf[3];
+                Gpu_client.Text = "GPU Клиента: " + client_inf[4];
+                Mac_client.Text = "MAC-адрес: " + client_inf[5];
                 IP_client.Visible = true;
                 Net_conection.Visible = true;
                 OS_name.Visible = true;
                 CPU_Client.Visible = true;
+                Gpu_client.Visible = true;
+                Mac_client.Visible = true;
             }
             catch (Exception ex)
             {
                 // для тестировки если клиент отключился
                 //MessageBox.Show(ex.Message);
+                IP_client.Visible = false;
+                Net_conection.Visible = false;
+                OS_name.Visible = false;
+                CPU_Client.Visible = false;
+                Gpu_client.Visible = false;
+                Mac_client.Visible = false;
                 return;
             }
+        }
+
+        private void Net_conection_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void IP_client_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
