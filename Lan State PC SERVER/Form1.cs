@@ -98,6 +98,8 @@ namespace Lan_State_PC_SERVER
         private void статусСервераToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // сделать нормальное меню или отображение
+            if (ServerAct.IsEnable)
+            { }
             MessageBox.Show($"Cтатус сервера:{ServerAct.IsEnable}\nКоличество подключений:{ServerAct.GetClients.Count}");
         }
 
@@ -144,21 +146,31 @@ namespace Lan_State_PC_SERVER
         // прописываем метод для каждой кнопки
         private async void ClientButton_Click(object sender, EventArgs e)
         {
-            //действия прия нажатой кнопке
-            Button client_button = (Button)sender;
-            string client_ms_er =  await ServerAct.GetinfoClient(client_button.Text);
-            //очищяем строку от невидимых символов
-            string client_ms = Regex.Replace(client_ms_er,@"[^0-9A-Яа-яA-Za-z.:]","");
-            string[] client_inf = client_ms.Split(':');
-
-            IP_client.Text = "IP: " + client_inf[0];
-            Net_conection.Text = "Есть интернет(Ping yandex dns): " + client_inf[1];
-            OS_name.Text = "OS Клиента: " + client_inf[2];
-            CPU_Client.Text = "CPU Клиента: " + client_inf[3];
-            IP_client.Visible = true;
-            Net_conection.Visible = true;
-            OS_name.Visible = true;
-            CPU_Client.Visible = true;
+            try
+            {
+                //действия прия нажатой кнопке
+                Button client_button = (Button)sender;
+                string client_ms_er = await ServerAct.GetinfoClient(client_button.Text);
+               
+                //очищяем строку от невидимых символов
+                string client_ms = Regex.Replace(client_ms_er, @"[^0-9A-Яа-яA-Za-z.:]", "");
+                string[] client_inf = client_ms.Split(':');
+               
+                IP_client.Text = "IP: " + client_inf[0];
+                Net_conection.Text = "Есть интернет(Ping yandex dns): " + client_inf[1];
+                OS_name.Text = "OS Клиента: " + client_inf[2];
+                CPU_Client.Text = "CPU Клиента: " + client_inf[3];
+                IP_client.Visible = true;
+                Net_conection.Visible = true;
+                OS_name.Visible = true;
+                CPU_Client.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                // для тестировки если клиент отключился
+                //MessageBox.Show(ex.Message);
+                return;
+            }
         }
     }
 }
