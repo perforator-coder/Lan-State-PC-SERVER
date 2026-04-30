@@ -16,6 +16,17 @@ namespace Lan_State_PC_SERVER
         {
             InitializeComponent();
             //проверяем есть ли файл и если нет то просим вести порт
+            if (File.Exists("notifyStatus.txt") && bool.TryParse(File.ReadAllText("notifyStatus.txt"),out isfirsttime))
+            {
+                if (isfirsttime)
+                {
+                    this.отключитьУведомленияToolStripMenuItem.Text = "Отключить Уведомления";
+                }
+                else
+                {
+                    this.отключитьУведомленияToolStripMenuItem.Text = "Включить уведомления";
+                }
+            }
             if (!File.Exists("Port.txt"))
             {
                 Port_form.ShowDialog();
@@ -69,6 +80,7 @@ namespace Lan_State_PC_SERVER
         {
 
             File.WriteAllText("Port.txt", port.ToString());
+            File.WriteAllText("notifyStatus.txt", isfirsttime.ToString());
 
         }
         // действие проверяющие запущен сервер или нет
@@ -84,7 +96,7 @@ namespace Lan_State_PC_SERVER
                 if (isfirsttime)
                 {
                     icon_tray.ShowBalloonTip(10, "Lan State PC SERVER", "Программа работает в трее, так как сервер запущен.", ToolTipIcon.Info);
-                    isfirsttime = false;
+                   
                 }
             }
         }
@@ -297,7 +309,7 @@ namespace Lan_State_PC_SERVER
                 Server_ms.Visible = false;
                 MS_send.Visible = false;
             }
-            
+
         }
 
         private void Restart_Click(object sender, EventArgs e)
@@ -331,9 +343,23 @@ namespace Lan_State_PC_SERVER
                 }
                 else
                 {
-                    MessageBox.Show("Server MS send error","Строка пуста",MessageBoxButtons.OK,MessageBoxIcon.Hand);
+                    MessageBox.Show("Server MS send error", "Строка пуста", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                     MS_send.Enabled = true;
                 }
+            }
+        }
+
+        private void отключитьУведомленияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isfirsttime)
+            {
+                isfirsttime = false;
+                this.отключитьУведомленияToolStripMenuItem.Text = "Включить уведомления";
+            }
+            else 
+            {
+                isfirsttime = true;
+                this.отключитьУведомленияToolStripMenuItem.Text = "Отключить Уведомления";
             }
         }
     }

@@ -56,6 +56,7 @@
             Restart = new Button();
             Server_ms = new TextBox();
             MS_send = new Button();
+            отключитьУведомленияToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             Tray_menu.SuspendLayout();
             SuspendLayout();
@@ -74,7 +75,7 @@
             // 
             // опцииToolStripMenuItem
             // 
-            опцииToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { выходToolStripMenuItem });
+            опцииToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { отключитьУведомленияToolStripMenuItem, выходToolStripMenuItem });
             опцииToolStripMenuItem.Name = "опцииToolStripMenuItem";
             опцииToolStripMenuItem.Size = new Size(59, 20);
             опцииToolStripMenuItem.Text = "Опции";
@@ -82,7 +83,7 @@
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new Size(116, 22);
+            выходToolStripMenuItem.Size = new Size(233, 22);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
@@ -296,6 +297,13 @@
             MS_send.UseVisualStyleBackColor = false;
             MS_send.Click += MS_send_Click;
             // 
+            // отключитьУведомленияToolStripMenuItem
+            // 
+            отключитьУведомленияToolStripMenuItem.Name = "отключитьУведомленияToolStripMenuItem";
+            отключитьУведомленияToolStripMenuItem.Size = new Size(233, 22);
+            отключитьУведомленияToolStripMenuItem.Text = "Отключить Уведомления";
+            отключитьУведомленияToolStripMenuItem.Click += отключитьУведомленияToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -356,5 +364,6 @@
         private Button Restart;
         private TextBox Server_ms;
         private Button MS_send;
+        private ToolStripMenuItem отключитьУведомленияToolStripMenuItem;
     }
 }
