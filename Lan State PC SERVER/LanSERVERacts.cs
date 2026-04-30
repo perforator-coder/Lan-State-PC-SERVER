@@ -157,6 +157,102 @@ namespace Lan_State_PC_SERVER
             catch (IOException ex)
             {
                 MessageBox.Show(ex.Message);
+                Clients[Key_ID].Close();
+                Clients.Remove(Key_ID);
+                return "er";
+            }
+        }
+        public async Task SendShutDown(string Key_ID)
+        {
+            try
+            {
+                if (Clients.ContainsKey(Key_ID))
+                {
+                    using (NetworkStream stream = Clients[Key_ID].GetStream())
+                    using (StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8))
+                    using (StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8))
+                    {
+                        WriteMS.AutoFlush = true;
+                        await WriteMS.WriteLineAsync("SHUTDOWN");
+                        Clients[Key_ID].Close();
+                        Clients.Remove(Key_ID);
+                    }
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Clients[Key_ID].Close();
+                Clients.Remove(Key_ID);
+                return;
+            }
+        }
+        public async Task SendRestart(string Key_ID)
+        {
+            try
+            {
+                if (Clients.ContainsKey(Key_ID))
+                {
+                    using (NetworkStream stream = Clients[Key_ID].GetStream())
+                    using (StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8))
+                    using (StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8))
+                    {
+                        WriteMS.AutoFlush = true;
+                        await WriteMS.WriteLineAsync("RESTART");
+                        Clients[Key_ID].Close();
+                        Clients.Remove(Key_ID);
+                    }
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Clients[Key_ID].Close();
+                Clients.Remove(Key_ID);
+                return;
+            }
+        }
+        public async Task<string> SendMS(string Key_ID,string MS)
+        {
+            try
+            {
+                if (Clients.ContainsKey(Key_ID))
+                {
+                    StringBuilder MSserver = new StringBuilder();
+                    NetworkStream stream = Clients[Key_ID].GetStream();
+                    StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8);
+                    StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8);
+                    WriteMS.AutoFlush = true;
+                    MSserver.Append("MS:");
+                    MSserver.Append(MS);
+                    await WriteMS.WriteLineAsync(MSserver.ToString());
+                    string Client_ms = await ReadMS.ReadLineAsync();
+
+                    return Client_ms;
+                }
+                else
+                {
+                    MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return "er";
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message);
+                
+                Clients.Remove(Key_ID);
                 return "er";
             }
         }

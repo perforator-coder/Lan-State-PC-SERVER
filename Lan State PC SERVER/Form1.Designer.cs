@@ -52,6 +52,10 @@
             выключитьСерверИВыйтиToolStripMenuItem = new ToolStripMenuItem();
             статусСервераToolStripMenuItem1 = new ToolStripMenuItem();
             показатьМенюToolStripMenuItem = new ToolStripMenuItem();
+            Shutdown = new Button();
+            Restart = new Button();
+            Server_ms = new TextBox();
+            MS_send = new Button();
             menuStrip1.SuspendLayout();
             Tray_menu.SuspendLayout();
             SuspendLayout();
@@ -64,7 +68,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { опцииToolStripMenuItem, сетьToolStripMenuItem, оПрограммеToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(623, 24);
+            menuStrip1.Size = new Size(543, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -243,12 +247,65 @@
             показатьМенюToolStripMenuItem.Text = "Показать меню";
             показатьМенюToolStripMenuItem.Click += показатьМенюToolStripMenuItem_Click;
             // 
+            // Shutdown
+            // 
+            Shutdown.BackColor = Color.FromArgb(255, 255, 192);
+            Shutdown.FlatStyle = FlatStyle.Flat;
+            Shutdown.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            Shutdown.Location = new Point(133, 325);
+            Shutdown.Name = "Shutdown";
+            Shutdown.Size = new Size(178, 36);
+            Shutdown.TabIndex = 8;
+            Shutdown.Text = "Выключить пк клиента";
+            Shutdown.UseVisualStyleBackColor = false;
+            Shutdown.Click += Shutdown_Click;
+            // 
+            // Restart
+            // 
+            Restart.BackColor = Color.FromArgb(255, 255, 192);
+            Restart.FlatStyle = FlatStyle.Flat;
+            Restart.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            Restart.Location = new Point(328, 325);
+            Restart.Name = "Restart";
+            Restart.Size = new Size(206, 36);
+            Restart.TabIndex = 9;
+            Restart.Text = "Перезапустить пк клиента";
+            Restart.UseVisualStyleBackColor = false;
+            Restart.Click += Restart_Click;
+            // 
+            // Server_ms
+            // 
+            Server_ms.BackColor = Color.FromArgb(255, 255, 192);
+            Server_ms.BorderStyle = BorderStyle.FixedSingle;
+            Server_ms.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            Server_ms.Location = new Point(133, 297);
+            Server_ms.Name = "Server_ms";
+            Server_ms.Size = new Size(299, 22);
+            Server_ms.TabIndex = 10;
+            // 
+            // MS_send
+            // 
+            MS_send.BackColor = Color.FromArgb(255, 255, 192);
+            MS_send.FlatStyle = FlatStyle.Flat;
+            MS_send.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            MS_send.Location = new Point(438, 245);
+            MS_send.Name = "MS_send";
+            MS_send.Size = new Size(96, 74);
+            MS_send.TabIndex = 11;
+            MS_send.Text = "Отправить сообщение";
+            MS_send.UseVisualStyleBackColor = false;
+            MS_send.Click += MS_send_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MediumPurple;
-            ClientSize = new Size(623, 373);
+            ClientSize = new Size(543, 373);
+            Controls.Add(MS_send);
+            Controls.Add(Server_ms);
+            Controls.Add(Restart);
+            Controls.Add(Shutdown);
             Controls.Add(Mac_client);
             Controls.Add(Gpu_client);
             Controls.Add(CPU_Client);
@@ -295,5 +352,9 @@
         private ToolStripMenuItem выключитьСерверИВыйтиToolStripMenuItem;
         private ToolStripMenuItem статусСервераToolStripMenuItem1;
         private ToolStripMenuItem показатьМенюToolStripMenuItem;
+        private Button Shutdown;
+        private Button Restart;
+        private TextBox Server_ms;
+        private Button MS_send;
     }
 }

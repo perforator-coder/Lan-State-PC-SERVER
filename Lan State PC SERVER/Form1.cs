@@ -11,6 +11,7 @@ namespace Lan_State_PC_SERVER
         private static LanSERVERacts ServerAct;
         private Dictionary<string, TcpClient> Client_clone;
         private bool isfirsttime = true;
+        private string selectedclient = "";
         public Form1()
         {
             InitializeComponent();
@@ -38,6 +39,10 @@ namespace Lan_State_PC_SERVER
             Gpu_client.Visible = false;
             Mac_client.Visible = false;
             icon_tray.Visible = false;
+            Shutdown.Visible = false;
+            Restart.Visible = false;
+            Server_ms.Visible = false;
+            MS_send.Visible = false;
             this.FormClosed += new FormClosedEventHandler(SavePort);
             this.FormClosing += new FormClosingEventHandler(StopClosing);
         }
@@ -91,7 +96,7 @@ namespace Lan_State_PC_SERVER
                 ADD_PORT Port_form = new ADD_PORT();
                 Port_form.ShowDialog();
                 ServerAct = new LanSERVERacts(port);
-                
+
             }
 
 
@@ -126,7 +131,10 @@ namespace Lan_State_PC_SERVER
                 CPU_Client.Visible = false;
                 Gpu_client.Visible = false;
                 Mac_client.Visible = false;
-
+                Shutdown.Visible = false;
+                Restart.Visible = false;
+                Server_ms.Visible = false;
+                MS_send.Visible = false;
             }
         }
 
@@ -160,14 +168,14 @@ namespace Lan_State_PC_SERVER
                 panel1.Controls.Clear();
             }
             int y = 10;
-            int count = 0;
+
             foreach (string key in Client_clone.Keys)
             {
 
                 // Доработать расположение кнопок 
                 Button client = new Button();
                 client.Text = key;
-                count += 1;
+
                 client.BackColor = Color.White;
                 client.Location = new Point(20, y);
                 client.FlatStyle = FlatStyle.Flat;
@@ -175,13 +183,7 @@ namespace Lan_State_PC_SERVER
                 client.Click += ClientButton_Click;
                 y += 30;
                 panel1.Controls.Add(client);
-                if (count > 1)
-                {
-                    panel1.VerticalScroll.Visible = true;
-                    panel1.VerticalScroll.Maximum = 2000;
-                    panel1.VerticalScroll.Minimum = 0;
 
-                }
             }
 
         }
@@ -193,7 +195,8 @@ namespace Lan_State_PC_SERVER
                 //действия прия нажатой кнопке
                 Button client_button = (Button)sender;
                 string client_ms_er = await ServerAct.GetinfoClient(client_button.Text);
-
+                client_button.Enabled = false;
+                selectedclient = client_button.Text;
                 //очищяем строку от невидимых символов
                 string client_ms = Regex.Replace(client_ms_er, @"[^0-9A-Яа-яA-Za-z.: (),]", "");
                 string[] client_inf = client_ms.Split(',');
@@ -210,6 +213,13 @@ namespace Lan_State_PC_SERVER
                 CPU_Client.Visible = true;
                 Gpu_client.Visible = true;
                 Mac_client.Visible = true;
+                Shutdown.Visible = true;
+                Restart.Visible = true;
+                Server_ms.Visible = true;
+                MS_send.Visible = true;
+                Server_ms.Text = "";
+                // добавить появление кнопок
+                client_button.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -221,6 +231,10 @@ namespace Lan_State_PC_SERVER
                 CPU_Client.Visible = false;
                 Gpu_client.Visible = false;
                 Mac_client.Visible = false;
+                Shutdown.Visible = false;
+                Restart.Visible = false;
+                Server_ms.Visible = false;
+                MS_send.Visible = false;
                 return;
             }
         }
@@ -266,6 +280,61 @@ namespace Lan_State_PC_SERVER
         private void Tray_menu_Opening(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void Shutdown_Click(object sender, EventArgs e)
+        {
+            if (selectedclient != "")
+            {
+                ServerAct.SendShutDown(selectedclient);
+                IP_client.Visible = false;
+                Net_conection.Visible = false;
+                OS_name.Visible = false;
+                CPU_Client.Visible = false;
+                Gpu_client.Visible = false;
+                Mac_client.Visible = false;
+                Shutdown.Visible = false;
+                Server_ms.Visible = false;
+                MS_send.Visible = false;
+            }
+            
+        }
+
+        private void Restart_Click(object sender, EventArgs e)
+        {
+            if (selectedclient != "")
+            {
+                ServerAct.SendRestart(selectedclient);
+                IP_client.Visible = false;
+                Net_conection.Visible = false;
+                OS_name.Visible = false;
+                CPU_Client.Visible = false;
+                Gpu_client.Visible = false;
+                Mac_client.Visible = false;
+                Shutdown.Visible = false;
+                Restart.Visible = false;
+                Server_ms.Visible = false;
+                MS_send.Visible = false;
+            }
+        }
+
+        private async void MS_send_Click(object sender, EventArgs e)
+        {
+            MS_send.Enabled = false;
+            if (selectedclient != "")
+            {
+                if (!string.IsNullOrEmpty(Server_ms.Text))
+                {
+                    string status = await ServerAct.SendMS(selectedclient, Server_ms.Text);
+                    Server_ms.Text = status;
+                    MS_send.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Server MS send error","Строка пуста",MessageBoxButtons.OK,MessageBoxIcon.Hand);
+                    MS_send.Enabled = true;
+                }
+            }
         }
     }
 }
