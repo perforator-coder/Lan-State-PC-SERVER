@@ -83,6 +83,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MediumPurple;
             ClientSize = new Size(172, 118);
+            ControlBox = false;
             Controls.Add(SAVE_PORT);
             Controls.Add(Port_box);
             Controls.Add(label2);
