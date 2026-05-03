@@ -212,7 +212,7 @@ namespace Lan_State_PC_SERVER
                 //очищяем строку от невидимых символов
                 string client_ms = Regex.Replace(client_ms_er, @"[^0-9A-Яа-яA-Za-z.: (),]", "");
                 string[] client_inf = client_ms.Split(',');
-                //MessageBox.Show(client_ms_er);
+               
                 IP_client.Text = "IP: " + client_inf[0];
                 Net_conection.Text = "Есть интернет: " + client_inf[1];
                 OS_name.Text = "OS Клиента: " + client_inf[2];
@@ -230,13 +230,13 @@ namespace Lan_State_PC_SERVER
                 Server_ms.Visible = true;
                 MS_send.Visible = true;
                 Server_ms.Text = "";
-                // добавить появление кнопок
+                
                 client_button.Enabled = true;
             }
             catch (Exception ex)
             {
                 // для тестировки если клиент отключился
-                //MessageBox.Show(ex.Message);
+                
                 IP_client.Visible = false;
                 Net_conection.Visible = false;
                 OS_name.Visible = false;
@@ -294,58 +294,125 @@ namespace Lan_State_PC_SERVER
 
         }
 
-        private void Shutdown_Click(object sender, EventArgs e)
+        private async void Shutdown_Click(object sender, EventArgs e)
         {
             if (selectedclient != "")
             {
-                ServerAct.SendShutDown(selectedclient);
-                IP_client.Visible = false;
-                Net_conection.Visible = false;
-                OS_name.Visible = false;
-                CPU_Client.Visible = false;
-                Gpu_client.Visible = false;
-                Mac_client.Visible = false;
-                Shutdown.Visible = false;
-                Server_ms.Visible = false;
-                MS_send.Visible = false;
+                bool status = await ServerAct.SendShutDown(selectedclient);
+                if (status)
+                {
+
+                    IP_client.Visible = false;
+                    Net_conection.Visible = false;
+                    OS_name.Visible = false;
+                    CPU_Client.Visible = false;
+                    Gpu_client.Visible = false;
+                    Mac_client.Visible = false;
+                    Shutdown.Visible = false;
+                    Restart.Visible = false;
+                    Server_ms.Visible = false;
+                    MS_send.Visible = false;
+                }
+                else 
+                {
+                    MessageBox.Show("Ошибка отправки запроса", "Client Send ER");
+                    IP_client.Visible = false;
+                    Net_conection.Visible = false;
+                    OS_name.Visible = false;
+                    CPU_Client.Visible = false;
+                    Gpu_client.Visible = false;
+                    Mac_client.Visible = false;
+                    Shutdown.Visible = false;
+                    Restart.Visible = false;
+                    Server_ms.Visible = false;
+                    MS_send.Visible = false;
+                    selectedclient = "";
+                }
             }
 
         }
 
-        private void Restart_Click(object sender, EventArgs e)
+        private  async void Restart_Click(object sender, EventArgs e)
         {
             if (selectedclient != "")
             {
-                ServerAct.SendRestart(selectedclient);
-                IP_client.Visible = false;
-                Net_conection.Visible = false;
-                OS_name.Visible = false;
-                CPU_Client.Visible = false;
-                Gpu_client.Visible = false;
-                Mac_client.Visible = false;
-                Shutdown.Visible = false;
-                Restart.Visible = false;
-                Server_ms.Visible = false;
-                MS_send.Visible = false;
+                bool status  = await ServerAct.SendRestart(selectedclient);
+                if (status)
+                {
+                    IP_client.Visible = false;
+                    Net_conection.Visible = false;
+                    OS_name.Visible = false;
+                    CPU_Client.Visible = false;
+                    Gpu_client.Visible = false;
+                    Mac_client.Visible = false;
+                    Shutdown.Visible = false;
+                    Restart.Visible = false;
+                    Server_ms.Visible = false;
+                    MS_send.Visible = false;
+                    
+                }
+                else 
+                {
+                    MessageBox.Show("Ошибка отправки запроса","Client Send ER");
+                    IP_client.Visible = false;
+                    Net_conection.Visible = false;
+                    OS_name.Visible = false;
+                    CPU_Client.Visible = false;
+                    Gpu_client.Visible = false;
+                    Mac_client.Visible = false;
+                    Shutdown.Visible = false;
+                    Restart.Visible = false;
+                    Server_ms.Visible = false;
+                    MS_send.Visible = false;
+                    selectedclient = "";
+                }
             }
         }
 
         private async void MS_send_Click(object sender, EventArgs e)
         {
-            MS_send.Enabled = false;
-            if (selectedclient != "")
+            try
             {
-                if (!string.IsNullOrEmpty(Server_ms.Text))
+                MS_send.Enabled = false;
+                if (selectedclient != "")
                 {
-                    string status = await ServerAct.SendMS(selectedclient, Server_ms.Text);
-                    Server_ms.Text = status;
-                    MS_send.Enabled = true;
+                    if (!string.IsNullOrEmpty(Server_ms.Text))
+                    {
+                        bool status = await ServerAct.SendMS(selectedclient, Server_ms.Text);
+                        if (status)
+                        {
+                            MS_send.Enabled = true;
+                        }
+                        else 
+                        {
+                            MessageBox.Show("Ошибка отправки сообщения клиент потерян", "Client Send ER");
+                            MS_send.Visible = false;
+                            IP_client.Visible = false;
+                            Net_conection.Visible = false;
+                            OS_name.Visible = false;
+                            CPU_Client.Visible = false;
+                            Gpu_client.Visible = false;
+                            Mac_client.Visible = false;
+                            Shutdown.Visible = false;
+                            Restart.Visible = false;
+                            Server_ms.Visible = false;
+                            MS_send.Visible = false;
+                            selectedclient = "";
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Server MS send error", "Строка пуста", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        MS_send.Enabled = true;
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Server MS send error", "Строка пуста", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                    MS_send.Enabled = true;
-                }
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                MS_send.Enabled = true;
             }
         }
 

@@ -88,30 +88,68 @@ namespace Lan_State_PC_SERVER
         // метод для обработки каждого клиента
         private async Task ConnectClientstatus(TcpClient client, CancellationToken Cansel_tok)
         {
-            using (NetworkStream stream = client.GetStream())
-            using (StreamWriter SendMS = new StreamWriter(stream, Encoding.UTF8))
-            using (StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8))
+            string client_id = "";
+            try
             {
+                NetworkStream stream = client.GetStream();
+                StreamWriter SendMS = new StreamWriter(stream, Encoding.UTF8);
+                StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8);
+
 
                 SendMS.AutoFlush = true;
                 await SendMS.WriteLineAsync("PINGID");
-                string client_id = await ReadMS.ReadLineAsync();
-                
+                client_id = await ReadMS.ReadLineAsync(Cansel_tok);
+
                 lock (Clients)
                 {
                     if (!Clients.ContainsKey(client_id))
                     {
-                        //Clients[client_id].Close
+                        
                         Clients.Add(client_id, client);
-                       // MessageBox.Show($"Есть клиент{client_id}");
+                        
                     }
-                    
+
                 }
                 while (!Cansel_tok.IsCancellationRequested && client.Connected)
                 {
-                    await Task.Delay(1000,Cansel_tok);
+
+
+                    await Task.Delay(5000, Cansel_tok);
+                    if (client == null || client.Client == null)
+                    {
+                        break;
+                    }
+                    try
+                    {
+                        if (client.Client.Poll(0, SelectMode.SelectRead) && client.Client.Available == 0)
+                        {
+                            break;
+                        }
+                    }
+                    catch
+                    {
+                        break;
+                    }
+                    
+
                 }
             }
+            catch (Exception ex)
+            {
+                
+            }
+            finally
+            {
+                if (client_id != null)
+                {
+                    lock (Clients)
+                    {
+                        Clients.Remove(client_id);
+                    }
+                }
+                client?.Close();
+            }
+            
         }
         // тестовый запрос
         public async Task dev(string key_id)
@@ -162,12 +200,13 @@ namespace Lan_State_PC_SERVER
                 return "er";
             }
         }
-        public async Task SendShutDown(string Key_ID)
+        public async Task<bool> SendShutDown(string Key_ID)
         {
             try
             {
-                if (Clients.ContainsKey(Key_ID))
+                if (Clients.ContainsKey(Key_ID) && Clients[Key_ID] != null && Clients[Key_ID].Connected )
                 {
+                    
                     using (NetworkStream stream = Clients[Key_ID].GetStream())
                     using (StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8))
                     using (StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8))
@@ -177,23 +216,23 @@ namespace Lan_State_PC_SERVER
                         Clients[Key_ID].Close();
                         Clients.Remove(Key_ID);
                     }
-                    return;
+                    return true;
                 }
                 else
                 {
-                    MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                   
+                    return false;
                 }
             }
             catch (IOException ex)
             {
-                MessageBox.Show(ex.Message);
+                
                 Clients[Key_ID].Close();
                 Clients.Remove(Key_ID);
-                return;
+                return false;
             }
         }
-        public async Task SendRestart(string Key_ID)
+        public async Task<bool> SendRestart(string Key_ID)
         {
             try
             {
@@ -208,23 +247,23 @@ namespace Lan_State_PC_SERVER
                         Clients[Key_ID].Close();
                         Clients.Remove(Key_ID);
                     }
-                    return;
+                    return true;
                 }
                 else
                 {
-                    MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                   
+                    return false;
                 }
             }
             catch (IOException ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
                 Clients[Key_ID].Close();
                 Clients.Remove(Key_ID);
-                return;
+                return false;
             }
         }
-        public async Task<string> SendMS(string Key_ID,string MS)
+        public async Task<bool> SendMS(string Key_ID,string MS)
         {
             try
             {
@@ -239,21 +278,27 @@ namespace Lan_State_PC_SERVER
                     MSserver.Append(MS);
                     await WriteMS.WriteLineAsync(MSserver.ToString());
                     string Client_ms = await ReadMS.ReadLineAsync();
-
-                    return Client_ms;
+                    if (Client_ms == "OK")
+                    {
+                        return true;
+                    }
+                    else 
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return "er";
+                   
+                    return false;
                 }
             }
             catch (IOException ex)
             {
                 MessageBox.Show(ex.Message);
-                
+                Clients[Key_ID].Close() ;
                 Clients.Remove(Key_ID);
-                return "er";
+                return false;
             }
         }
     }
