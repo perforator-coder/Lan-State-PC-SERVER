@@ -236,7 +236,7 @@ namespace Lan_State_PC_SERVER
         {
             try
             {
-                if (Clients.ContainsKey(Key_ID))
+                if (Clients.ContainsKey(Key_ID) && Clients[Key_ID] != null && Clients[Key_ID].Connected)
                 {
                     using (NetworkStream stream = Clients[Key_ID].GetStream())
                     using (StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8))
