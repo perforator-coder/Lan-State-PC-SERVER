@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -154,20 +155,28 @@ namespace Lan_State_PC_SERVER
         // тестовый запрос
         public async Task dev(string key_id)
         {
-            if (Clients.ContainsKey(key_id))
+            try
             {
-                NetworkStream stream = Clients[key_id].GetStream();
-                StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8);
-                StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8);
-
-                WriteMS.AutoFlush = true;
-                await WriteMS.WriteLineAsync("STATUS");
-                string client_ms = await ReadMS.ReadLineAsync();
-                MessageBox.Show($"{key_id},{client_ms}");
+                if (Clients.ContainsKey(key_id))
+                {
+                    NetworkStream stream = Clients[key_id].GetStream();
+                    StreamWriter WriteMS = new StreamWriter(stream, Encoding.UTF8);
+                    StreamReader ReadMS = new StreamReader(stream, Encoding.UTF8);
+                    var time =  Stopwatch.StartNew();
+                    WriteMS.AutoFlush = true;
+                    await WriteMS.WriteLineAsync("STATUS");
+                    string client_ms = await ReadMS.ReadLineAsync();
+                    time.Stop();
+                    MessageBox.Show($"ID: {key_id}\nStatus: {client_ms}\nPing: {time.ElapsedMilliseconds} mc");
+                }
+                else
+                {
+                    MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("Клиент потерян","Client error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         // запрос для получения данных

@@ -16,7 +16,7 @@ namespace Lan_State_PC_SERVER
         {
             InitializeComponent();
             //проверяем есть ли файл и если нет то просим вести порт
-            if (File.Exists("notifyStatus.txt") && bool.TryParse(File.ReadAllText("notifyStatus.txt"),out isfirsttime))
+            if (File.Exists("notifyStatus.txt") && bool.TryParse(File.ReadAllText("notifyStatus.txt"), out isfirsttime))
             {
                 if (isfirsttime)
                 {
@@ -54,6 +54,7 @@ namespace Lan_State_PC_SERVER
             Restart.Visible = false;
             Server_ms.Visible = false;
             MS_send.Visible = false;
+            Ping_bt.Visible = false;
             this.FormClosed += new FormClosedEventHandler(SavePort);
             this.FormClosing += new FormClosingEventHandler(StopClosing);
         }
@@ -96,7 +97,7 @@ namespace Lan_State_PC_SERVER
                 if (isfirsttime)
                 {
                     icon_tray.ShowBalloonTip(10, "Lan State PC SERVER", "Программа работает в трее, так как сервер запущен.", ToolTipIcon.Info);
-                   
+
                 }
             }
         }
@@ -147,6 +148,7 @@ namespace Lan_State_PC_SERVER
                 Restart.Visible = false;
                 Server_ms.Visible = false;
                 MS_send.Visible = false;
+                Ping_bt.Visible = false;
             }
         }
 
@@ -175,6 +177,7 @@ namespace Lan_State_PC_SERVER
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Client_clone = ServerAct.GetClients;
+            panel1.Controls.Clear();
             if (Client_clone.Count == 0)
             {
                 panel1.Controls.Clear();
@@ -204,6 +207,7 @@ namespace Lan_State_PC_SERVER
         {
             try
             {
+                
                 //действия прия нажатой кнопке
                 Button client_button = (Button)sender;
                 string client_ms_er = await ServerAct.GetinfoClient(client_button.Text);
@@ -212,7 +216,7 @@ namespace Lan_State_PC_SERVER
                 //очищяем строку от невидимых символов
                 string client_ms = Regex.Replace(client_ms_er, @"[^0-9A-Яа-яA-Za-z.: (),]", "");
                 string[] client_inf = client_ms.Split(',');
-               
+
                 IP_client.Text = "IP: " + client_inf[0];
                 Net_conection.Text = "Есть интернет: " + client_inf[1];
                 OS_name.Text = "OS Клиента: " + client_inf[2];
@@ -229,14 +233,15 @@ namespace Lan_State_PC_SERVER
                 Restart.Visible = true;
                 Server_ms.Visible = true;
                 MS_send.Visible = true;
+                Ping_bt.Visible = true;
                 Server_ms.Text = "";
-                
+
                 client_button.Enabled = true;
             }
             catch (Exception ex)
             {
                 // для тестировки если клиент отключился
-                
+
                 IP_client.Visible = false;
                 Net_conection.Visible = false;
                 OS_name.Visible = false;
@@ -247,6 +252,7 @@ namespace Lan_State_PC_SERVER
                 Restart.Visible = false;
                 Server_ms.Visible = false;
                 MS_send.Visible = false;
+                Ping_bt.Visible = false;
                 return;
             }
         }
@@ -312,8 +318,9 @@ namespace Lan_State_PC_SERVER
                     Restart.Visible = false;
                     Server_ms.Visible = false;
                     MS_send.Visible = false;
+                    Ping_bt.Visible = false;
                 }
-                else 
+                else
                 {
                     MessageBox.Show("Ошибка отправки запроса", "Client Send ER");
                     IP_client.Visible = false;
@@ -326,17 +333,18 @@ namespace Lan_State_PC_SERVER
                     Restart.Visible = false;
                     Server_ms.Visible = false;
                     MS_send.Visible = false;
+                    Ping_bt.Visible = false;
                     selectedclient = "";
                 }
             }
 
         }
 
-        private  async void Restart_Click(object sender, EventArgs e)
+        private async void Restart_Click(object sender, EventArgs e)
         {
             if (selectedclient != "")
             {
-                bool status  = await ServerAct.SendRestart(selectedclient);
+                bool status = await ServerAct.SendRestart(selectedclient);
                 if (status)
                 {
                     IP_client.Visible = false;
@@ -349,11 +357,11 @@ namespace Lan_State_PC_SERVER
                     Restart.Visible = false;
                     Server_ms.Visible = false;
                     MS_send.Visible = false;
-                    
+
                 }
-                else 
+                else
                 {
-                    MessageBox.Show("Ошибка отправки запроса","Client Send ER");
+                    MessageBox.Show("Ошибка отправки запроса", "Client Send ER");
                     IP_client.Visible = false;
                     Net_conection.Visible = false;
                     OS_name.Visible = false;
@@ -383,7 +391,7 @@ namespace Lan_State_PC_SERVER
                         {
                             MS_send.Enabled = true;
                         }
-                        else 
+                        else
                         {
                             MessageBox.Show("Ошибка отправки сообщения клиент потерян", "Client Send ER");
                             MS_send.Visible = false;
@@ -397,6 +405,7 @@ namespace Lan_State_PC_SERVER
                             Restart.Visible = false;
                             Server_ms.Visible = false;
                             MS_send.Visible = false;
+                            Ping_bt.Visible = false;
                             selectedclient = "";
                         }
                     }
@@ -423,11 +432,29 @@ namespace Lan_State_PC_SERVER
                 isfirsttime = false;
                 this.отключитьУведомленияToolStripMenuItem.Text = "Включить уведомления";
             }
-            else 
+            else
             {
                 isfirsttime = true;
                 this.отключитьУведомленияToolStripMenuItem.Text = "Отключить Уведомления";
             }
+        }
+
+        private void Ping_bt_Click(object sender, EventArgs e)
+        {
+            Ping_bt.Enabled = false;
+            try
+            {
+                if (selectedclient != "")
+                {
+                    ServerAct.dev(selectedclient);
+                }
+                Ping_bt.Enabled = true;
+            }
+            catch
+            {
+                Ping_bt.Enabled = true;
+            }
+
         }
     }
 }

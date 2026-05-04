@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip1 = new MenuStrip();
             опцииToolStripMenuItem = new ToolStripMenuItem();
+            отключитьУведомленияToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
             сетьToolStripMenuItem = new ToolStripMenuItem();
             обновитьToolStripMenuItem = new ToolStripMenuItem();
@@ -56,7 +57,7 @@
             Restart = new Button();
             Server_ms = new TextBox();
             MS_send = new Button();
-            отключитьУведомленияToolStripMenuItem = new ToolStripMenuItem();
+            Ping_bt = new Button();
             menuStrip1.SuspendLayout();
             Tray_menu.SuspendLayout();
             SuspendLayout();
@@ -79,6 +80,13 @@
             опцииToolStripMenuItem.Name = "опцииToolStripMenuItem";
             опцииToolStripMenuItem.Size = new Size(59, 20);
             опцииToolStripMenuItem.Text = "Опции";
+            // 
+            // отключитьУведомленияToolStripMenuItem
+            // 
+            отключитьУведомленияToolStripMenuItem.Name = "отключитьУведомленияToolStripMenuItem";
+            отключитьУведомленияToolStripMenuItem.Size = new Size(233, 22);
+            отключитьУведомленияToolStripMenuItem.Text = "Отключить Уведомления";
+            отключитьУведомленияToolStripMenuItem.Click += отключитьУведомленияToolStripMenuItem_Click;
             // 
             // выходToolStripMenuItem
             // 
@@ -297,12 +305,18 @@
             MS_send.UseVisualStyleBackColor = false;
             MS_send.Click += MS_send_Click;
             // 
-            // отключитьУведомленияToolStripMenuItem
+            // Ping_bt
             // 
-            отключитьУведомленияToolStripMenuItem.Name = "отключитьУведомленияToolStripMenuItem";
-            отключитьУведомленияToolStripMenuItem.Size = new Size(233, 22);
-            отключитьУведомленияToolStripMenuItem.Text = "Отключить Уведомления";
-            отключитьУведомленияToolStripMenuItem.Click += отключитьУведомленияToolStripMenuItem_Click;
+            Ping_bt.BackColor = Color.FromArgb(255, 255, 192);
+            Ping_bt.FlatStyle = FlatStyle.Flat;
+            Ping_bt.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            Ping_bt.Location = new Point(133, 268);
+            Ping_bt.Name = "Ping_bt";
+            Ping_bt.Size = new Size(141, 23);
+            Ping_bt.TabIndex = 12;
+            Ping_bt.Text = "Пинг клиента";
+            Ping_bt.UseVisualStyleBackColor = false;
+            Ping_bt.Click += Ping_bt_Click;
             // 
             // Form1
             // 
@@ -310,6 +324,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MediumPurple;
             ClientSize = new Size(543, 373);
+            Controls.Add(Ping_bt);
             Controls.Add(MS_send);
             Controls.Add(Server_ms);
             Controls.Add(Restart);
@@ -365,5 +380,6 @@
         private TextBox Server_ms;
         private Button MS_send;
         private ToolStripMenuItem отключитьУведомленияToolStripMenuItem;
+        private Button Ping_bt;
     }
 }
