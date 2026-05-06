@@ -357,6 +357,7 @@ namespace Lan_State_PC_SERVER
                     Restart.Visible = false;
                     Server_ms.Visible = false;
                     MS_send.Visible = false;
+                    Ping_bt.Visible = false;
 
                 }
                 else
@@ -372,6 +373,7 @@ namespace Lan_State_PC_SERVER
                     Restart.Visible = false;
                     Server_ms.Visible = false;
                     MS_send.Visible = false;
+                    Ping_bt.Visible = false;
                     selectedclient = "";
                 }
             }
