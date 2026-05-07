@@ -224,8 +224,9 @@
             icon_tray.BalloonTipTitle = "Lan State PC SERVER";
             icon_tray.ContextMenuStrip = Tray_menu;
             icon_tray.Icon = (Icon)resources.GetObject("icon_tray.Icon");
-            icon_tray.Text = "test";
+            icon_tray.Text = "Lan State PC SERVER";
             icon_tray.Visible = true;
+            icon_tray.MouseDoubleClick += icon_tray_MouseDoubleClick;
             // 
             // Tray_menu
             // 

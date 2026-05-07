@@ -93,6 +93,8 @@ namespace Lan_State_PC_SERVER
                 this.WindowState = FormWindowState.Minimized;
                 this.ShowInTaskbar = false;
                 this.icon_tray.Visible = true;
+                this.Visible = false;
+                this.Hide();
                 //icon_tray.BalloonTipIcon = Properties.Resources.SERVER_ICON;
                 if (isfirsttime)
                 {
@@ -207,7 +209,7 @@ namespace Lan_State_PC_SERVER
         {
             try
             {
-                
+
                 //действия прия нажатой кнопке
                 Button client_button = (Button)sender;
                 string client_ms_er = await ServerAct.GetinfoClient(client_button.Text);
@@ -278,6 +280,7 @@ namespace Lan_State_PC_SERVER
             icon_tray.Visible = false;
             this.Show();
             this.ShowInTaskbar = true;
+            this.Visible = true;
             this.WindowState = FormWindowState.Normal;
         }
 
@@ -456,6 +459,11 @@ namespace Lan_State_PC_SERVER
             {
                 Ping_bt.Enabled = true;
             }
+
+        }
+
+        private void icon_tray_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
 
         }
     }
