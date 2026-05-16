@@ -152,8 +152,8 @@ namespace Lan_State_PC_SERVER
             }
             
         }
-        // тестовый запрос
-        public async Task dev(string key_id)
+        
+        public async Task ping(string key_id)
         {
             try
             {
@@ -203,7 +203,7 @@ namespace Lan_State_PC_SERVER
             }
             catch (IOException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Clients[Key_ID].Close();
                 Clients.Remove(Key_ID);
                 return "er";
@@ -235,7 +235,7 @@ namespace Lan_State_PC_SERVER
             }
             catch (IOException ex)
             {
-                
+                MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Clients[Key_ID].Close();
                 Clients.Remove(Key_ID);
                 return false;
@@ -266,6 +266,7 @@ namespace Lan_State_PC_SERVER
             }
             catch (IOException ex)
             {
+                MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //MessageBox.Show(ex.Message);
                 Clients[Key_ID].Close();
                 Clients.Remove(Key_ID);
@@ -304,7 +305,7 @@ namespace Lan_State_PC_SERVER
             }
             catch (IOException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Client error", "Клиент потерян", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Clients[Key_ID].Close() ;
                 Clients.Remove(Key_ID);
                 return false;

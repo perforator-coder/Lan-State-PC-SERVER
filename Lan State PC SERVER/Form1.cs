@@ -189,7 +189,6 @@ namespace Lan_State_PC_SERVER
             foreach (string key in Client_clone.Keys)
             {
 
-                // Доработать расположение кнопок 
                 Button client = new Button();
                 client.Text = key;
 
@@ -242,8 +241,7 @@ namespace Lan_State_PC_SERVER
             }
             catch (Exception ex)
             {
-                // для тестировки если клиент отключился
-
+                
                 IP_client.Visible = false;
                 Net_conection.Visible = false;
                 OS_name.Visible = false;
@@ -416,7 +414,7 @@ namespace Lan_State_PC_SERVER
                     }
                     else
                     {
-                        MessageBox.Show("Server MS send error", "Строка пуста", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        MessageBox.Show("Строка пуста", "Server MS send error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                         MS_send.Enabled = true;
                     }
                 }
@@ -451,7 +449,7 @@ namespace Lan_State_PC_SERVER
             {
                 if (selectedclient != "")
                 {
-                    ServerAct.dev(selectedclient);
+                    ServerAct.ping(selectedclient);
                 }
                 Ping_bt.Enabled = true;
             }
