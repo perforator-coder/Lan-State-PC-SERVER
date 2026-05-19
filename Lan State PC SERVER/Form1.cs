@@ -95,7 +95,7 @@ namespace Lan_State_PC_SERVER
                 this.icon_tray.Visible = true;
                 this.Visible = false;
                 this.Hide();
-                //icon_tray.BalloonTipIcon = Properties.Resources.SERVER_ICON;
+                
                 if (isfirsttime)
                 {
                     icon_tray.ShowBalloonTip(10, "Lan State PC SERVER", "Программа работает в трее, так как сервер запущен.", ToolTipIcon.Info);

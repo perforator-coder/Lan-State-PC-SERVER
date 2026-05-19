@@ -51,7 +51,7 @@ namespace Lan_State_PC_SERVER
                         }
                         catch (OperationCanceledException ex)
                         {
-                           // MessageBox.Show($"Сервер отключился...","Server error connection");
+                           
                         }
                     }
                 });
@@ -192,7 +192,6 @@ namespace Lan_State_PC_SERVER
                     WriteMS.AutoFlush = true;
                     await WriteMS.WriteLineAsync("GETINFO");
                     string Client_ms = await ReadMS.ReadLineAsync();
-
                     return Client_ms;
                 }
                 else
@@ -267,7 +266,7 @@ namespace Lan_State_PC_SERVER
             catch (IOException ex)
             {
                 MessageBox.Show("Клиент потерян", "Client error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //MessageBox.Show(ex.Message);
+                
                 Clients[Key_ID].Close();
                 Clients.Remove(Key_ID);
                 return false;
